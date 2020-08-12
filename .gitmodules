@@ -1,5 +1,6 @@
 [submodule "m64lab"]
 	path = m64lab
 	url = git@github.com:dylanpdx/m64lab.git
+	branch = library
 [submodule "m64lab/"]
 	branch = library
