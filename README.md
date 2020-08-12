@@ -19,3 +19,8 @@ Setup instructions coming soon
 ## Building
 
 Build instructions coming soon
+
+## TODO
+
+* Implement a m64 converter within the tool itself
+* Check for overlapping notes & offer to move to a new channel
