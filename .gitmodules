@@ -1,0 +1,3 @@
+[submodule "m64lab"]
+	path = m64lab
+	url = git@github.com:dylanpdx/m64lab.git
