@@ -20,6 +20,10 @@ Libraries/Projects used:
 
 Load a MIDI file, select the soundbank the final sound will be played on, and then select the proper instruments for each channel.
 
+## Caveats 
+* Generated .m64 files don't loop at the moment
+* ??? (Probably a lot more that I haven't thought of)
+
 ## Using Preview mode
 Please note that preview mode is NOT perfect, and the final result can sound much different in-game (due to N64 limits, converter errors, etc.)
 
