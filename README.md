@@ -2,7 +2,9 @@
 ## Easy conversion of MIDI to .m64 for SM64 romhacking
 
 A quick tool I put together to make sm64 music making easier.
-Keep in mind the code isn't the best due to putting this together in a short amount of time. PRs are welcome!
+Keep in mind the code isn't the best due to putting this together in a short amount of time for personal use. There's also quite a few of bugs.
+
+I don't have much time to be working on the project, but PRs are welcome!
 
 Libraries/Projects used:
 
@@ -11,10 +13,20 @@ Libraries/Projects used:
 * [DryWetMidi](https://github.com/melanchall/drywetmidi) for midi parsing
 * [ObjectListView](https://www.myget.org/feed/geomatics/package/nuget/ObjectListView.Official) for displaying channels
 
+## Using
+
+Load a MIDI file, select the soundbank the final sound will be played on, and then select the proper instruments for each channel.
+
 ## Using Preview mode
 Please note that preview mode is NOT perfect, and the final result can sound much different in-game (due to N64 limits, converter errors, etc.)
 
-Setup instructions coming soon
+To use Preview mode, you need a legally ripped N64 ROM, and the N64 Soundbank Tool from [this repository](https://github.com/jombo23/N64-Tools).
+Select your ROM in the N64 Soundbank tool, load it, and then press the "Write All DLS Soundfont Banks" button.
+Browse to the folder where SM64Mus is, and select or create the "Soundbanks" folder. Export your soundbanks there.
+
+Pressing play in SM64Mus with a MIDI loaded should now load and play the midi with the SM64 soundbank selected.
+
+Changing instruments or soundbanks should refresh the preview live.
 
 ## Building
 

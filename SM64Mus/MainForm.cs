@@ -48,6 +48,8 @@ namespace SM64Mus
         {
             NLSTChoices.Items.AddRange(NLSTUtils.NLISTNames);
             NLSTChoices.SelectedIndex = 0;
+            if (!Directory.Exists("Soundbanks"))
+                Directory.CreateDirectory("Soundbanks");
         }
 
         void loadMidi(string path)
@@ -104,7 +106,7 @@ namespace SM64Mus
                     syn.ProgramChange((e.RowObject as midiTrack).channel - 1, (e.Control as ComboBox).SelectedIndex);
                 }
             }
-            
+
         }
 
         private void NLSTChoices_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,7 +141,7 @@ namespace SM64Mus
         /// <summary>
         /// Renders the currently applied settings to a MIDI file (in memory) and then sets up a player
         /// </summary>
-        void setupPlayerForPlayback()
+        bool setupPlayerForPlayback()
         {
             if (drv != null)
                 drv.Dispose();
@@ -147,19 +149,25 @@ namespace SM64Mus
                 player.Dispose();
             if (syn != null)
                 syn.Dispose();
+            var soundfontFile = @"Soundbanks\ExtractedSoundbank_" + (NLSTChoice + 10).ToString("X2") + ".dls";
+            if (!File.Exists(soundfontFile))
+            {
+                MessageBox.Show("A required soundbank file is missing - Please see the Github on how to extract soundbanks from your ROM.");
+                return false;
+            }
             var settings = new Settings();
             settings[ConfigurationKeys.SynthAudioChannels].IntValue = 2;
             syn = new Synth(settings);
             syn.Gain = 0.5f;
-            syn.LoadSoundFont(@"Soundbanks\" + (NLSTChoice + 10).ToString("X2") + ".dls", true);
+            syn.LoadSoundFont(soundfontFile, true);
             for (int i = 0; i < 16; i++)
                 syn.SoundFontSelect(i, 1);
-            
+
             player = new Player(syn);
             var mid = exportMIDBytes();
             player.AddMem(mid, 0, mid.Length);
             drv = new AudioDriver(settings, syn);
-
+            return true;
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -169,9 +177,9 @@ namespace SM64Mus
                 MessageBox.Show("Load a midi first!");
                 return;
             }
-            exportMID();
-            setupPlayerForPlayback();
-            player.Play();
+            var setupSuccess = setupPlayerForPlayback();
+            if (setupSuccess)
+                player.Play();
         }
 
         private void stopButton_Click(object sender, EventArgs e)
@@ -184,7 +192,7 @@ namespace SM64Mus
         /// </summary>
         public void reloadMidiSameSpot()
         {
-            if (player==null || player.Status != FluidPlayerStatus.Playing)
+            if (player == null || player.Status != FluidPlayerStatus.Playing)
                 return;
             var tick = player.CurrentTick; // save position
             player.Stop(); // stop
@@ -193,7 +201,7 @@ namespace SM64Mus
             while (player.CurrentTick <= 0) { } // give it time to initialize?
             fluidSynthExtras.fluid_player_seek(player.Handle, tick); // go back to where we were
             player.Play(); // play!
-            
+
         }
 
         private void loadMIDIToolStripMenuItem_Click(object sender, EventArgs e)
@@ -275,7 +283,7 @@ namespace SM64Mus
                     }
                 }
 
-                
+
                 MainForm.loadedMid.Chunks[trackIndex] = track;
                 MainForm.instance.reloadMidiSameSpot();
             }
