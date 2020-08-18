@@ -11,7 +11,7 @@ I don't have much time to be working on the project, but PRs are welcome!
 
 Libraries/Projects used:
 
-* A [fork](https://github.com/dylanpdx/m64lab) of [m64lab](https://github.com/DotStarMoney/m64lab) that properly assigns instruments, and is bundled as a library.
+* A [fork](https://github.com/dylanpdx/m64lab) of [m64lab](https://github.com/DotStarMoney/m64lab) that properly assigns instruments, and is bundled as a library. This is used to convert the midi to .m64
 * [FluidSynth](https://github.com/FluidSynth/fluidsynth) and [NFluidSynth](https://github.com/atsushieno/nfluidsynth) - For preview mode
 * [DryWetMidi](https://github.com/melanchall/drywetmidi) for midi parsing
 * [ObjectListView](https://www.myget.org/feed/geomatics/package/nuget/ObjectListView.Official) for displaying channels
