@@ -1,4 +1,7 @@
 # SM64Mus
+
+![Icon](icon.png?raw=true)
+
 ## Easy conversion of MIDI to .m64 for SM64 romhacking
 
 A quick tool I put together to make sm64 music making easier.
